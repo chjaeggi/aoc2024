@@ -2,7 +2,7 @@
 
 My solutions for [Advent of Code challenges 2024](https://adventofcode.com/2024) in Kotlin (JVM).
 
-[![Kotlin Version](https://img.shields.io/badge/kotlin-1.9.0-blue.svg)](http://kotlinlang.org/)
+[![Kotlin Version](https://img.shields.io/badge/kotlin-2.0.12-blue.svg)](http://kotlinlang.org/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Copyright © 2024 by Christian Jaeggi.
