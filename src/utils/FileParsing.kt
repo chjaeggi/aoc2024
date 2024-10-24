@@ -18,6 +18,24 @@ fun execFileByLineIndexed(number: Int, f: (str: String, index: Int) -> Unit) {
     }
 }
 
+fun execFileByLineInGroups(number: Int, groupSize: Int, f: (str: List<String>) -> Unit) {
+    val arr = mutableListOf<String>()
+    File("./src/inputs/input$number.txt").forEachLine {
+        arr.add(it)
+    }
+    val groupList = mutableListOf<String>()
+    var index = 0
+    while (index * groupSize < arr.size) {
+        for (line in (index * groupSize)..<(index + 1) * groupSize) {
+            groupList.add(arr[line])
+        }
+        index++
+        f(groupList)
+        groupList.clear()
+    }
+
+}
+
 fun numberOfLinesPerFile(number: Int): Int {
     val reader = BufferedReader(FileReader("./src/inputs/input$number.txt"))
     var lines = 0
