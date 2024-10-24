@@ -3,6 +3,7 @@ package utils
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
+import kotlin.math.min
 
 
 fun execFileByLine(number: Int, f: (str: String) -> Unit) =
@@ -19,21 +20,11 @@ fun execFileByLineIndexed(number: Int, f: (str: String, index: Int) -> Unit) {
 }
 
 fun execFileByLineInGroups(number: Int, groupSize: Int, f: (str: List<String>) -> Unit) {
-    val arr = mutableListOf<String>()
+    val arr = ArrayDeque<String>()
     File("./src/inputs/input$number.txt").forEachLine {
-        arr.add(it)
+        arr.addLast(it)
     }
-    val groupList = mutableListOf<String>()
-    var index = 0
-    while (index * groupSize < arr.size) {
-        for (line in (index * groupSize)..<(index + 1) * groupSize) {
-            groupList.add(arr[line])
-        }
-        index++
-        f(groupList)
-        groupList.clear()
-    }
-
+    while (arr.isNotEmpty()) f((0..<min(groupSize, arr.size)).map { arr.removeFirst() })
 }
 
 fun numberOfLinesPerFile(number: Int): Int {
