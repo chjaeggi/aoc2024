@@ -20,4 +20,4 @@ function i.a.
 
 | Day | Title                           | Links                                                                                                                    |
 |-----|---------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| 1   | ???                             | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day1.kt) [\[AoC\]](http://adventofcode.com/2024/day/1) |
+| 1   | Historian Hysteria              | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day1.kt) [\[AoC\]](http://adventofcode.com/2024/day/1) |
