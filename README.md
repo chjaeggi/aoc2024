@@ -18,7 +18,8 @@ function i.a.
 
 #### Daily Solution Index for 2024
 
-| Day | Title                          | Links                                                                                                                    |
-|-----|--------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| 1   | Historian Hysteria             | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day1.kt) [\[AoC\]](http://adventofcode.com/2024/day/1) |
-| 1   | Red-Nosed Reports              | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day2.kt) [\[AoC\]](http://adventofcode.com/2024/day/2) |
+| Day | Title              | Links                                                                                                                    |
+|-----|--------------------|--------------------------------------------------------------------------------------------------------------------------|
+| 1   | Historian Hysteria | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day1.kt) [\[AoC\]](http://adventofcode.com/2024/day/1) |
+| 2   | Red-Nosed Reports  | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day2.kt) [\[AoC\]](http://adventofcode.com/2024/day/2) |
+| 3   | Mull It Over       | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day3.kt) [\[AoC\]](http://adventofcode.com/2024/day/3) |
