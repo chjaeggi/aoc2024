@@ -4,14 +4,14 @@ data class Point2D(
     val x: Int,
     val y: Int,
 ) {
-   fun n() = this + Direction.N
-   fun e() = this + Direction.E
-   fun s() = this + Direction.S
-   fun w() = this + Direction.W
-   fun ne() = this + Direction.NE
-   fun se() = this + Direction.SE
-   fun sw() = this + Direction.SW
-   fun nw() = this + Direction.NW
+    val n get() = this+Direction.N
+    val e get() = this+Direction.E
+    val s get() = this+Direction.S
+    val w get() = this+Direction.W
+    val ne get() = this + Direction.NE
+    val se get() = this + Direction.SE
+    val sw get() = this + Direction.SW
+    val nw get() = this + Direction.NW
 }
 
 enum class Direction {

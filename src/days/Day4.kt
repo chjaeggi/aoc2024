@@ -31,15 +31,15 @@ class Day4 {
         p: Point2D,
         wordSearch: Array<CharArray>,
     ): Boolean {
-        if (wordSearch.inBounds(p.ne()) &&
-            wordSearch.inBounds(p.se()) &&
-            wordSearch.inBounds(p.sw()) &&
-            wordSearch.inBounds(p.nw())
+        if (wordSearch.inBounds(p.ne) &&
+            wordSearch.inBounds(p.se) &&
+            wordSearch.inBounds(p.sw) &&
+            wordSearch.inBounds(p.nw)
         ) {
-            return (wordSearch.at(p.ne()) == 'M' && wordSearch.at(p.sw()) == 'S' ||
-                    wordSearch.at(p.ne()) == 'S' && wordSearch.at(p.sw()) == 'M') &&
-                    (wordSearch.at(p.nw()) == 'M' && wordSearch.at(p.se()) == 'S' ||
-                            wordSearch.at(p.nw()) == 'S' && wordSearch.at(p.se()) == 'M')
+            return (wordSearch.at(p.ne) == 'M' && wordSearch.at(p.sw) == 'S' ||
+                    wordSearch.at(p.ne) == 'S' && wordSearch.at(p.sw) == 'M') &&
+                    (wordSearch.at(p.nw) == 'M' && wordSearch.at(p.se) == 'S' ||
+                            wordSearch.at(p.nw) == 'S' && wordSearch.at(p.se) == 'M')
         }
         return false
     }
