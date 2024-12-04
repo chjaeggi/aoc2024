@@ -18,9 +18,9 @@ class Day4 {
         p: Point2D,
         wordSearch: Array<CharArray>,
     ): Boolean {
-        if (wordSearch[p.y][p.x] == 'S') return true
+        if (wordSearch.at(p) == 'S') return true
         if (wordSearch.inBounds(p + direction)) {
-            if (nextChar(wordSearch[p.y][p.x]) == wordSearch[(p + direction).y][(p + direction).x]) {
+            if (nextChar(wordSearch.at(p)) == wordSearch.at(p + direction)) {
                 return findXMASSequence(direction, p + direction, wordSearch)
             }
         }
