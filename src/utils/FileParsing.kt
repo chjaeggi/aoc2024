@@ -9,13 +9,13 @@ import kotlin.math.min
 fun execFileByLine(number: Int, f: (str: String) -> Unit) =
     File("./src/inputs/input$number.txt").forEachLine { f(it) }
 
-fun execFileByLineIndexed(number: Int, f: (str: String, index: Int) -> Unit) {
+fun execFileByLineIndexed(number: Int, f: (index: Int, str: String) -> Unit) {
     val arr = mutableListOf<String>()
     File("./src/inputs/input$number.txt").forEachLine {
         arr.add(it)
     }
     arr.forEachIndexed { index, value ->
-        f(value, index)
+        f(index, value)
     }
 }
 
