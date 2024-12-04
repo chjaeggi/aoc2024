@@ -22,6 +22,6 @@ operator fun Point2D.plus(direction: Direction): Point2D {
     }
 }
 
-fun inBounds(p: Point2D, coords: Array<CharArray>): Boolean {
-    return p.y >= 0 && p.y <= coords.lastIndex && p.x >= 0 && p.x <= coords[0].lastIndex
+fun Array<CharArray>.inBounds(p: Point2D): Boolean {
+    return p.y >= 0 && p.y <= this.lastIndex && p.x >= 0 && p.x <= this[0].lastIndex
 }
