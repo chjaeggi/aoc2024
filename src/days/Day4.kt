@@ -31,15 +31,15 @@ class Day4 {
         p: Point2D,
         wordSearch: Array<CharArray>,
     ): Boolean {
-        if (wordSearch.inBounds(p + Direction.NE) &&
-            wordSearch.inBounds(p + Direction.SE) &&
-            wordSearch.inBounds(p + Direction.SW) &&
-            wordSearch.inBounds(p + Direction.NW)
+        if (wordSearch.inBounds(p.ne()) &&
+            wordSearch.inBounds(p.se()) &&
+            wordSearch.inBounds(p.sw()) &&
+            wordSearch.inBounds(p.nw())
         ) {
-            return (wordSearch[(p + Direction.NE).y][(p + Direction.NE).x] == 'M' && wordSearch[(p + Direction.SW).y][(p + Direction.SW).x] == 'S' ||
-                    wordSearch[(p + Direction.NE).y][(p + Direction.NE).x] == 'S' && wordSearch[(p + Direction.SW).y][(p + Direction.SW).x] == 'M') &&
-                    (wordSearch[(p + Direction.NW).y][(p + Direction.NW).x] == 'M' && wordSearch[(p + Direction.SE).y][(p + Direction.SE).x] == 'S' ||
-                            wordSearch[(p + Direction.NW).y][(p + Direction.NW).x] == 'S' && wordSearch[(p + Direction.SE).y][(p + Direction.SE).x] == 'M')
+            return (wordSearch.at(p.ne()) == 'M' && wordSearch.at(p.sw()) == 'S' ||
+                    wordSearch.at(p.ne()) == 'S' && wordSearch.at(p.sw()) == 'M') &&
+                    (wordSearch.at(p.nw()) == 'M' && wordSearch.at(p.se()) == 'S' ||
+                            wordSearch.at(p.nw()) == 'S' && wordSearch.at(p.se()) == 'M')
         }
         return false
     }
