@@ -34,11 +34,8 @@ class Day5 {
     }
 
     private fun reorder(update: List<Int>, pageOrdering: Map<Int, List<Int>>): List<Int> {
-        return update.map {
-            pageOrdering[it]?.intersect(update.toSet())?.size to it
-        }.sortedByDescending {
-            it.first
-        }.map { it.second }
+        return update.map { pageOrdering[it]?.intersect(update.toSet())?.size to it }
+            .sortedByDescending { it.first }.map { it.second }
     }
 
     private fun isValid(update: List<Int>, pageOrdering: Map<Int, List<Int>>): Boolean {
