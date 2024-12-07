@@ -25,3 +25,5 @@ function i.a.
 | 3   | Mull It Over       | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day3.kt) [\[AoC\]](http://adventofcode.com/2024/day/3) |
 | 4   | Ceres Search       | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day4.kt) [\[AoC\]](http://adventofcode.com/2024/day/4) |
 | 5   | Print Queue        | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day5.kt) [\[AoC\]](http://adventofcode.com/2024/day/5) |
+| 6   | Guard Gallivant    | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day6.kt) [\[AoC\]](http://adventofcode.com/2024/day/6) |
+| 7   | Bridge Repair      | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day7.kt) [\[AoC\]](http://adventofcode.com/2024/day/7) |
