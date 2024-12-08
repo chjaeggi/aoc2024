@@ -33,6 +33,8 @@ operator fun Point2D.plus(direction: Direction): Point2D {
     }
 }
 
+operator fun Point2D.plus(p: Point2D): Point2D = Point2D(2 * p.x - x, 2 * p.y - y, Direction.N)
+
 fun Array<CharArray>.inBounds(p: Point2D): Boolean {
     return p.y >= 0 && p.y <= this.lastIndex && p.x >= 0 && p.x <= this[0].lastIndex
 }

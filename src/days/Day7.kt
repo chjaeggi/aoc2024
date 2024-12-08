@@ -1,6 +1,7 @@
 package days
 
 import utils.execFileByLine
+import utils.permutationsForElements
 
 class Day7 {
 
@@ -16,7 +17,7 @@ class Day7 {
         execFileByLine(7) {
             val target = it.split(":").first().toLong()
             val numbers = it.split(": ").last().split(" ").map { it.toLong() }
-            val permutations = generatePermutations(operators, numbers.size - 1)
+            val permutations = permutationsForElements(operators, numbers.size - 1)
 
             for (operations in permutations) {
                 var result = numbers[0]
@@ -42,7 +43,7 @@ class Day7 {
         execFileByLine(7) {
             val target = it.split(":").first().toLong()
             val numbers = it.split(": ").last().split(" ").map { it.toLong() }
-            val permutations = generatePermutations(operators, numbers.size - 1)
+            val permutations = permutationsForElements(operators, numbers.size - 1)
 
             for (operations in permutations) {
                 var result = numbers[0]
@@ -60,13 +61,5 @@ class Day7 {
             }
         }
         println(res)
-    }
-
-    // Thanks, ChatGPT
-    private fun generatePermutations(operators: List<Char>, length: Int): List<List<Char>> {
-        if (length == 1) return operators.map { listOf(it) }
-        return generatePermutations(operators, length - 1).flatMap { prefix ->
-            operators.map { operator -> prefix + operator }
-        }
     }
 }
