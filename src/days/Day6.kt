@@ -33,7 +33,7 @@ class Day6 {
             return
         }
         while (room.obstacleAt(current.next)) {
-            current = current.copy(d = turn90degrees(current.d))
+            current = current.copy(d = current.d.turn90degreesCW())
         }
         patrolAround(current.next, room)
     }
@@ -55,7 +55,7 @@ class Day6 {
         }
 
         while (room.obstacleAt(current.next)) {
-            current = current.copy(d = turn90degrees(current.d))
+            current = current.copy(d = current.d.turn90degreesCW())
         }
 
         return findLoops(current.next, visited, room)
@@ -81,16 +81,4 @@ class Day6 {
     }
 
     private fun Array<CharArray>.obstacleAt(p: Point2D) = at(p) == '#'
-
-    private fun turn90degrees(direction: Direction): Direction {
-        return when (direction) {
-            Direction.N -> Direction.E
-            Direction.E -> Direction.S
-            Direction.S -> Direction.W
-            Direction.W -> Direction.N
-            else -> {
-                throw IllegalStateException()
-            }
-        }
-    }
 }

@@ -23,27 +23,25 @@ class Day8 {
                 }
             }
         }
-        antennas.forEach {
-            combinations(it.value, 2).forEach {
+        antennas.forEach { antenna ->
+            combinations(antenna.value, 2).forEach {
                 var a = it[0]
                 var b = it[1]
-                if (antennaRoom.inBounds(a + b)) antiNodes += a + b
-                if (antennaRoom.inBounds(b + a)) antiNodes += b + a
+                val vectorAB = it[0].to(it[1])
+                val vectorBA = it[1].to(it[0])
+
+                if (antennaRoom.inBounds(a + vectorBA)) antiNodes += a + vectorBA
+                if (antennaRoom.inBounds(b + vectorAB)) antiNodes += b + vectorAB
 
                 resonantAntiNodes += listOf(a, b)
-                while (antennaRoom.inBounds(a + b)) {
-                    val new = a + b
-                    resonantAntiNodes.add(new)
-                    a = b
-                    b = new
+                while (antennaRoom.inBounds(a + vectorBA)) {
+                    resonantAntiNodes.add(a + vectorBA)
+                    a += vectorBA
                 }
-                a = it[0]
-                b = it[1]
-                while (antennaRoom.inBounds(b + a)) {
-                    val new = b + a
-                    resonantAntiNodes.add(new)
-                    b = a
-                    a = new
+
+                while (antennaRoom.inBounds(b + vectorAB)) {
+                    resonantAntiNodes.add(b + vectorAB)
+                    b += vectorAB
                 }
             }
         }

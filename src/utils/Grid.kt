@@ -20,6 +20,18 @@ enum class Direction {
     N, E, S, W, NE, SE, SW, NW
 }
 
+fun Direction.turn90degreesCW(): Direction {
+    return when (this) {
+        Direction.N -> Direction.E
+        Direction.E -> Direction.S
+        Direction.S -> Direction.W
+        Direction.W -> Direction.N
+        else -> {
+            throw IllegalStateException()
+        }
+    }
+}
+
 operator fun Point2D.plus(direction: Direction): Point2D {
     return when (direction) {
         Direction.N -> Point2D(x, y - 1, Direction.N)
@@ -33,7 +45,8 @@ operator fun Point2D.plus(direction: Direction): Point2D {
     }
 }
 
-operator fun Point2D.plus(p: Point2D): Point2D = Point2D(2 * p.x - x, 2 * p.y - y, Direction.N)
+operator fun Point2D.plus(p: Point2D): Point2D = Point2D(p.x + x, p.y + y, Direction.N)
+fun Point2D.to(p: Point2D): Point2D = Point2D(p.x - x, p.y - y, Direction.N)
 
 fun Array<CharArray>.inBounds(p: Point2D): Boolean {
     return p.y >= 0 && p.y <= this.lastIndex && p.x >= 0 && p.x <= this[0].lastIndex
