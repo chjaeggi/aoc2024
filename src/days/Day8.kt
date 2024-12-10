@@ -16,9 +16,9 @@ class Day8 {
                 antennaRoom[y][x] = v
                 if (v != '.') {
                     if (v !in antennas.keys) {
-                        antennas[v] = listOf(Point2D(x, y, Direction.N))
+                        antennas[v] = listOf(Point2D(x, y))
                     } else {
-                        antennas[v] = antennas[v]!! + Point2D(x, y, Direction.N)
+                        antennas[v] = antennas[v]!! + Point2D(x, y)
                     }
                 }
             }

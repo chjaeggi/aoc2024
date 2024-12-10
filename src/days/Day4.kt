@@ -59,7 +59,7 @@ class Day4 {
             line.forEachIndexed { x, v ->
                 if (v == 'X') {
                     Direction.entries.forEach {
-                        if (findXMASSequence(it, Point2D(x, y, Direction.N), wordSearch)) res1++
+                        if (findXMASSequence(it, Point2D(x, y), wordSearch)) res1++
                     }
                 }
             }
@@ -67,7 +67,7 @@ class Day4 {
         wordSearch.forEachIndexed { y, line ->
             line.forEachIndexed { x, v ->
                 if (v == 'A') {
-                    if (findMASCross(Point2D(x, y, Direction.N), wordSearch)) res2++
+                    if (findMASCross(Point2D(x, y), wordSearch)) res2++
                 }
             }
         }
