@@ -4,81 +4,94 @@ import utils.*
 
 class Day6 {
 
-    private val initialPatrolRoute = mutableListOf<Point2DWithDirection>()
-    private val createdObstacles = mutableListOf<Point2DWithDirection>()
+    private val initialPatrolRoute = mutableListOf<Point2D>()
+    private val createdObstacles = mutableListOf<Point2D>()
     fun solve() {
+        var start: Point2D? = null
         val patrolRoom =
             Array(numberOfLinesPerFile(6)) { CharArray(numberOfCharsPerLine(6)) }
-        execFileByLineIndexed(6) { index, line ->
-            line.forEachIndexed { i, v ->
-                patrolRoom[index][i] = v
+
+        execFileByLineIndexed(6) { y, line ->
+            line.forEachIndexed { x, v ->
+                patrolRoom[y][x] = v
+                if (v == '^') start = Point2D(x, y)
             }
+
         }
-        val startPoint = patrolRoom.find('^')
-        startPoint?.let {
-            patrolAround(Point2DWithDirection(startPoint.x, startPoint.y, Direction.N), patrolRoom)
+        start?.let {
+            patrolAround(Point2D(it.x, it.y), Direction.N, patrolRoom)
         }
-        println(initialPatrolRoute.distinctBy { listOf(it.x, it.y) }.count())
-        createObstaclesOnRoute(initialPatrolRoute)
-        println(createdObstacles.distinctBy { listOf(it.x, it.y) }.count())
+        println(initialPatrolRoute.toSet().count())
+        createObstaclesOnRoute(initialPatrolRoute, patrolRoom)
+        println(createdObstacles.toSet().count())
+
     }
 
     private tailrec fun patrolAround(
-        pos: Point2DWithDirection,
+        pos: Point2D,
+        direction: Direction,
         room: Array<CharArray>,
     ) {
-        var current = pos
-        initialPatrolRoute += current
-        if (!room.inBounds(current.next)) {
+        var nextDirection = direction
+        initialPatrolRoute += pos
+        if (!room.inBounds(pos + nextDirection)) {
             return
         }
-        while (room.obstacleAt(current.next)) {
-            current = current.copy(d = current.d.turn90degreesCW())
+
+        while (room.obstacleAt(pos + nextDirection)) {
+            nextDirection = nextDirection.turn90degreesCW()
         }
-        patrolAround(current.next, room)
+        patrolAround(pos + nextDirection, nextDirection, room)
     }
 
     private tailrec fun findLoops(
-        pos: Point2DWithDirection,
-        visited: MutableList<Point2DWithDirection>,
+        pos: Point2D,
+        direction: Direction,
+        visited: MutableList<Pair<Point2D, Direction>>,
         room: Array<CharArray>,
     ): Boolean {
-        var current = pos
-
-        if (current in visited) {
+        var nextDirection = direction
+        if (pos to nextDirection in visited) {
             return true
         }
-        visited += current
+        visited += pos to nextDirection
 
-        if (!room.inBounds(current.next)) {
+        if (!room.inBounds(pos + nextDirection)) {
             return false
         }
 
-        while (room.obstacleAt(current.next)) {
-            current = current.copy(d = current.d.turn90degreesCW())
+        while (room.obstacleAt(pos + nextDirection)) {
+            nextDirection = nextDirection.turn90degreesCW()
         }
 
-        return findLoops(current.next, visited, room)
+        return findLoops(pos + nextDirection, nextDirection, visited, room)
     }
 
-    private fun createObstaclesOnRoute(route: List<Point2DWithDirection>) {
-        route.forEachIndexed { index, it ->
+    private fun createObstaclesOnRoute(route: List<Point2D>, patrolRoom: Array<CharArray>) {
+        for ((index, point) in route.withIndex()) {
             if (index > 0) {
-                val clonedPatrolRoom =
-                    Array(numberOfLinesPerFile(6)) { CharArray(numberOfCharsPerLine(6)) }
-                execFileByLineIndexed(6) { y, line ->
-                    line.forEachIndexed { x, v ->
-                        clonedPatrolRoom[y][x] = v
-                    }
+                val originalWayPoint = patrolRoom[point.y][point.x]
+                patrolRoom[point.y][point.x] = '#'
+                val loopList = mutableListOf<Pair<Point2D, Direction>>()
+                if (findLoops(route[0], Direction.N, loopList, patrolRoom)) {
+                    createdObstacles += point
                 }
-                clonedPatrolRoom[it.y][it.x] = '#'
-                val loopList = mutableListOf<Point2DWithDirection>()
-                if (findLoops(route[0], loopList, clonedPatrolRoom)) {
-                    createdObstacles += it
-                }
+                patrolRoom[point.y][point.x] = originalWayPoint
             }
         }
     }
 
-    private fun Array<CharArray>.obstacleAt(p: Point2DWithDirection) = at(p) == '#'
+    private fun Array<CharArray>.obstacleAt(p: Point2D) = at(p) == '#'
+
+    private fun Direction.turn90degreesCW(): Direction {
+        return when (this) {
+            Direction.N -> Direction.E
+            Direction.E -> Direction.S
+            Direction.S -> Direction.W
+            Direction.W -> Direction.N
+            else -> {
+                throw IllegalStateException()
+            }
+        }
+    }
 }

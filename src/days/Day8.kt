@@ -45,8 +45,8 @@ class Day8 {
                 }
             }
         }
-        println(antiNodes.distinctBy { it.x to it.y }.count())
-        println(resonantAntiNodes.distinctBy { it.x to it.y }.count())
+        println(antiNodes.toSet().count())
+        println(resonantAntiNodes.toSet().count())
     }
 
 }
