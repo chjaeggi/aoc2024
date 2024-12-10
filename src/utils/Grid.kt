@@ -14,6 +14,11 @@ data class Point2D(
     val nw get() = this + Direction.NW
 }
 
+data class Point2DWithDirection(
+    val p: Point2D,
+    val d: Direction, // signifies the direction in which the point was entered e.g. Direction.N == from Direction.S below the coordinates
+)
+
 enum class Direction {
     N, E, S, W, NE, SE, SW, NW
 }

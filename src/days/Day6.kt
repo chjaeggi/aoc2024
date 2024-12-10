@@ -47,14 +47,14 @@ class Day6 {
     private tailrec fun findLoops(
         pos: Point2D,
         direction: Direction,
-        visited: MutableList<Pair<Point2D, Direction>>,
+        visited: MutableList<Point2DWithDirection>,
         room: Array<CharArray>,
     ): Boolean {
         var nextDirection = direction
-        if (pos to nextDirection in visited) {
+        if (Point2DWithDirection(pos, nextDirection) in visited) {
             return true
         }
-        visited += pos to nextDirection
+        visited += Point2DWithDirection(pos, nextDirection)
 
         if (!room.inBounds(pos + nextDirection)) {
             return false
@@ -72,7 +72,7 @@ class Day6 {
             if (index > 0) {
                 val originalWayPoint = patrolRoom[point.y][point.x]
                 patrolRoom[point.y][point.x] = '#'
-                val loopList = mutableListOf<Pair<Point2D, Direction>>()
+                val loopList = mutableListOf<Point2DWithDirection>()
                 if (findLoops(route[0], Direction.N, loopList, patrolRoom)) {
                     createdObstacles += point
                 }
