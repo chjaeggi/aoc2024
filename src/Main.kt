@@ -1,5 +1,10 @@
-import days.Day10
+import days.*
+import kotlin.system.measureTimeMillis
 
 fun main() {
-    Day10().solve()
+    val time = measureTimeMillis {
+        Day10().solve()
+    }
+    println("-----------------")
+    println("Runs in $time ms")
 }
