@@ -29,4 +29,6 @@ function i.a.
 | 7   | Bridge Repair         | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day7.kt) [\[AoC\]](http://adventofcode.com/2024/day/7)   |
 | 8   | Resonant Collinearity | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day8.kt) [\[AoC\]](http://adventofcode.com/2024/day/8)   |
 | 9   | Disk Fragmented       | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day9.kt) [\[AoC\]](http://adventofcode.com/2024/day/9)   |
-| 10  | Hoof It               | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day10.kt) [\[AoC\]](http://adventofcode.com/2024/day/10) |
+| 10  | Hoof It               | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day11.kt) [\[AoC\]](http://adventofcode.com/2024/day/10) |
+| 11  | Plutonian Pebbles     | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day11.kt) [\[AoC\]](http://adventofcode.com/2024/day/11) |
+| 12  | Garden Groups         | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day11.kt) [\[AoC\]](http://adventofcode.com/2024/day/12) |
