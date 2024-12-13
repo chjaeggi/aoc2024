@@ -33,16 +33,7 @@ class Day12 {
             plots += plot
         }
         println(plots.map { it.map { it.key.fences } }.sumOf { it.size * it.sum() })
-
-        plots.map {
-            var corners = 0
-            it.keys.map {
-                if (it.isCornerPiece()) {
-
-                }
-            }
-        }
-
+        println(plots.sumOf { plot -> plot.keys.sumOf { it.numberCornerPieces() * plot.keys.size } })
     }
 
     private fun gardening(plant: Plant, plot: Plot) {
@@ -60,10 +51,19 @@ class Day12 {
         }
     }
 
-    private fun Plant.isCornerPiece(): Boolean {
-        return when {
-            else -> false
-        }
+    private fun Plant.numberCornerPieces(): Int {
+        return listOf(Direction.N, Direction.E, Direction.S, Direction.W, Direction.N)
+            .zipWithNext()
+            .map {
+                listOf(
+                    garden.atOrNull(this.pos), // current field
+                    garden.atOrNull(this.pos + it.first), // N for instance
+                    garden.atOrNull(this.pos + it.second), // E for instance
+                    garden.atOrNull(this.pos + it.first + it.second), // NE for instance
+                )
+            }.count { (current, side1, side2, corner) ->
+                (current != side1 && current != side2) || (side1 == current && side2 == current && corner != current)
+            }
     }
 
     private fun Plant.getNeighboringSamePlant(): List<Plant> {
