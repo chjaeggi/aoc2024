@@ -50,3 +50,4 @@ inline fun <reified T> Array<T>.inBounds(p: Point2D): Boolean {
 fun Array<CharArray>.at(p: Point2D) = this[p.y][p.x]
 fun Array<CharArray>.atOrNull(p: Point2D) = if (inBounds(p)) this[p.y][p.x] else null
 fun Array<IntArray>.at(p: Point2D) = this[p.y][p.x]
+fun Array<IntArray>.atOrNull(p: Point2D) = if (inBounds(p)) this[p.y][p.x] else null

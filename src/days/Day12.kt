@@ -68,60 +68,47 @@ class Day12 {
 
     private fun Plant.getNeighboringSamePlant(): List<Plant> {
         val neighbors = mutableListOf<Plant>()
-        if (garden.inBounds(pos.n) && garden.at(pos.n) == garden.at(pos)) neighbors += Plant(
-            pos.n,
-            garden.at(pos.n),
-            pos.n.calculateFences()
-        )
-        if (garden.inBounds(pos.e) && garden.at(pos.e) == garden.at(pos)) neighbors += Plant(
-            pos.e,
-            garden.at(pos.e),
-            pos.e.calculateFences()
-        )
-        if (garden.inBounds(pos.s) && garden.at(pos.s) == garden.at(pos)) neighbors += Plant(
-            pos.s,
-            garden.at(pos.s),
-            pos.s.calculateFences()
-        )
-        if (garden.inBounds(pos.w) && garden.at(pos.w) == garden.at(pos)) neighbors += Plant(
-            pos.w,
-            garden.at(pos.w),
-            pos.w.calculateFences()
-        )
+        listOf(
+            Direction.N,
+            Direction.E,
+            Direction.S,
+            Direction.W,
+            Direction.NE,
+            Direction.SW,
+            Direction.SW,
+            Direction.NW
+        ).forEach { d ->
+            if (garden.inBounds(pos + d) && garden.at(pos + d) == garden.at(pos)) {
+                neighbors += Plant(pos + d, garden.at(pos + d), (pos + d).calculateFences())
+            }
+        }
         return neighbors
     }
 
     private fun Plant.getNeighboringDifferentPlants(): List<Plant> {
         val neighbors = mutableListOf<Plant>()
-        if (garden.inBounds(pos.n) && garden.at(pos.n) != garden.at(pos)) neighbors += Plant(
-            pos.n,
-            garden.at(pos.n),
-            pos.n.calculateFences()
-        )
-        if (garden.inBounds(pos.e) && garden.at(pos.e) != garden.at(pos)) neighbors += Plant(
-            pos.e,
-            garden.at(pos.e),
-            pos.e.calculateFences()
-        )
-        if (garden.inBounds(pos.s) && garden.at(pos.s) != garden.at(pos)) neighbors += Plant(
-            pos.s,
-            garden.at(pos.s),
-            pos.s.calculateFences()
-        )
-        if (garden.inBounds(pos.w) && garden.at(pos.w) != garden.at(pos)) neighbors += Plant(
-            pos.w,
-            garden.at(pos.w),
-            pos.w.calculateFences()
-        )
+        listOf(
+            Direction.N,
+            Direction.E,
+            Direction.S,
+            Direction.W,
+            Direction.NE,
+            Direction.SW,
+            Direction.SW,
+            Direction.NW
+        ).forEach { d ->
+            if (garden.inBounds(pos + d) && garden.at(pos + d) != garden.at(pos)) {
+                neighbors += Plant(pos + d, garden.at(pos + d), (pos + d).calculateFences())
+            }
+        }
         return neighbors
     }
 
     private fun Point2D.calculateFences(): Int {
         var res = 4
-        if (garden.inBounds(n) && garden.at(n) == garden.at(this)) res--
-        if (garden.inBounds(e) && garden.at(e) == garden.at(this)) res--
-        if (garden.inBounds(s) && garden.at(s) == garden.at(this)) res--
-        if (garden.inBounds(w) && garden.at(w) == garden.at(this)) res--
+        listOf(Direction.N, Direction.E, Direction.S, Direction.W).forEach { d ->
+            if (garden.inBounds(n) && garden.at(n) == garden.at(this)) res--
+        }
         return res
     }
 
