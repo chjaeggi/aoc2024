@@ -7,6 +7,7 @@ data class Plant(
     val name: Char,
     val fences: Int,
 )
+// TODO refactor ... We don't need a graph here, a tree is enough
 typealias Plot = MutableMap<Plant, List<PlantConnection>>
 
 data class PlantConnection(val from: Plant, val to: Plant)
