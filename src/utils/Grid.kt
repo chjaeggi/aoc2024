@@ -35,9 +35,21 @@ operator fun Point2D.plus(direction: Direction): Point2D {
         Direction.NW -> Point2D(x - 1, y - 1)
     }
 }
+operator fun Point2D.minus(direction: Direction): Point2D {
+    return when (direction) {
+        Direction.N -> this + Direction.S
+        Direction.E -> this + Direction.W
+        Direction.S -> this + Direction.N
+        Direction.W -> this + Direction.E
+        Direction.NE -> this + Direction.SW
+        Direction.SE -> this + Direction.NW
+        Direction.SW -> this + Direction.NE
+        Direction.NW -> this + Direction.SE
+    }
+}
 
-operator fun Point2D.plus(p: Point2D): Point2D = Point2D(p.x + x, p.y + y)
-fun Point2D.to(p: Point2D): Point2D = Point2D(p.x - x, p.y - y)
+operator fun Point2D.plus(other: Point2D): Point2D = Point2D(other.x + x, other.y + y)
+operator fun Point2D.minus(other: Point2D): Point2D = Point2D(other.x - x, other.y - y)
 
 inline fun <reified T> Array<T>.inBounds(p: Point2D): Boolean {
     return when (T::class) {

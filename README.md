@@ -34,3 +34,4 @@ function i.a.
 | 12  | Garden Groups         | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day12.kt) [\[AoC\]](http://adventofcode.com/2024/day/12) |
 | 13  | Claw Contraption      | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day13.kt) [\[AoC\]](http://adventofcode.com/2024/day/13) |
 | 14  | Restroom Redoubt      | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day14.kt) [\[AoC\]](http://adventofcode.com/2024/day/14) |
+| 15  | Warehouse Woes        | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day15.kt) [\[AoC\]](http://adventofcode.com/2024/day/15) |

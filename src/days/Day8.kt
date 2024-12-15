@@ -27,8 +27,8 @@ class Day8 {
             combinations(antenna.value, 2).forEach {
                 var a = it[0]
                 var b = it[1]
-                val vectorAB = it[0].to(it[1])
-                val vectorBA = it[1].to(it[0])
+                val vectorAB = it[0] - it[1]
+                val vectorBA = it[1] - it[0]
 
                 if (antennaRoom.inBounds(a + vectorBA)) antiNodes += a + vectorBA
                 if (antennaRoom.inBounds(b + vectorAB)) antiNodes += b + vectorAB
