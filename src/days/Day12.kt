@@ -2,15 +2,15 @@ package days
 
 import utils.*
 
-data class Plant(
+private data class Plant(
     val pos: Point2D,
     val name: Char,
     val fences: Int,
 )
 // TODO refactor ... We don't need a graph here, a tree is enough
-typealias Plot = MutableMap<Plant, List<PlantConnection>>
+private typealias Plot = MutableMap<Plant, List<PlantConnection>>
 
-data class PlantConnection(val from: Plant, val to: Plant)
+private data class PlantConnection(val from: Plant, val to: Plant)
 
 class Day12 {
     private val garden =
@@ -108,7 +108,7 @@ class Day12 {
     private fun Point2D.calculateFences(): Int {
         var res = 4
         listOf(Direction.N, Direction.E, Direction.S, Direction.W).forEach { d ->
-            if (garden.inBounds(n) && garden.at(n) == garden.at(this)) res--
+            if (garden.inBounds(this + d) && garden.at(this + d) == garden.at(this)) res--
         }
         return res
     }
