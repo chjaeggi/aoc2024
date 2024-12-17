@@ -18,7 +18,8 @@ private data class Step(
     val cost: Int
 )
 
-private data class Race(val step: Step, val totalCost: Int) : Comparable<Race> {
+private data class Race(val step: Step, val totalCost: Int, val stepsAlong: List<DirectedPoint2D>) :
+    Comparable<Race> {
     override fun compareTo(other: Race): Int {
         val comparison = totalCost - other.totalCost
         return when {
@@ -71,6 +72,8 @@ class Day16 {
                 }
             }
             println("The best race from $dijkstraStart to $dijkstraDest costs: $min")
+//            val all = tracks.getAllPathsInCheapestFor(DirectedPoint2D(it, Direction.E))
+//            println("all: $all")
         } ?: println("No start field found")
     }
 
@@ -133,7 +136,7 @@ class Day16 {
     // dijkstra
     private fun Tracks.cheapestCostsFrom(p: DirectedPoint2D): Map<DirectedPoint2D, Int> {
         val queue = PriorityQueue<Race>()
-        queue.addAll(this[p]?.map { Race(it, it.cost) }
+        queue.addAll(this[p]?.map { Race(it, it.cost, emptyList()) }
             ?: emptyList()) // add starting outbounds from source
         val seen = mutableSetOf<DirectedPoint2D>()
         val costPerDestination = mutableMapOf<DirectedPoint2D, Int>()
@@ -147,16 +150,47 @@ class Day16 {
                     queue += routes
                         .filterNot { it.to in seen } // prevent racing back
                         .map {
-                            Race(it, currentStep.totalCost + it.cost)
+                            Race(it, currentStep.totalCost + it.cost, emptyList())
                         }
 
                 }
                 seen += currentStep.step.to
             }
         }
-        costPerDestination.keys.sortedBy { it.pos.y }
         return costPerDestination
     }
+
+//    private fun Tracks.getAllPathsInCheapestFor(p: DirectedPoint2D): Int {
+//        val queue = PriorityQueue<Race>()
+//        queue.addAll(this[p]?.map { Race(it, it.cost, listOf(p)) }
+//            ?: emptyList()) // add starting outbounds from source
+//        val seen = mutableMapOf<DirectedPoint2D, Int>()
+//        var costAtGoal: Int? = null
+//        val allSpotsInAllPaths: MutableSet<DirectedPoint2D> = mutableSetOf()
+//        while (queue.isNotEmpty()) {
+//            val currentRace = queue.poll()
+//            if (costAtGoal != null && currentRace.totalCost > costAtGoal) {
+//                return allSpotsInAllPaths.size
+//            } else if (raceMap.at(currentRace.step.from.pos) == 'E') {
+//                costAtGoal = currentRace.totalCost
+//                allSpotsInAllPaths.addAll(currentRace.stepsAlong)
+//            } else if (seen.getOrDefault(
+//                    currentRace.step.to,
+//                    Int.MAX_VALUE
+//                ) >= currentRace.totalCost
+//            ) {
+//                seen[currentRace.step.to] = currentRace.totalCost
+//                this[currentRace.step.to]?.let { routes ->
+//                    queue += routes.map {
+//                        Race(it, currentRace.totalCost + it.cost, emptyList())
+//                            .copy(stepsAlong = currentRace.stepsAlong + it.to)
+//                    }
+//
+//                }
+//            }
+//        }
+//        return allSpotsInAllPaths.size
+//    }
 }
 
 

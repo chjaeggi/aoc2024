@@ -35,3 +35,5 @@ function i.a.
 | 13  | Claw Contraption      | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day13.kt) [\[AoC\]](http://adventofcode.com/2024/day/13) |
 | 14  | Restroom Redoubt      | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day14.kt) [\[AoC\]](http://adventofcode.com/2024/day/14) |
 | 15  | Warehouse Woes        | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day15.kt) [\[AoC\]](http://adventofcode.com/2024/day/15) |
+| 16  | Reindeer Maze        | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day16.kt) [\[AoC\]](http://adventofcode.com/2024/day/17) |
+| 15  | Warehouse Woes        | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day17.kt) [\[AoC\]](http://adventofcode.com/2024/day/17) |
