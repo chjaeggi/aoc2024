@@ -74,10 +74,6 @@ class Day12 {
             Direction.E,
             Direction.S,
             Direction.W,
-            Direction.NE,
-            Direction.SW,
-            Direction.SW,
-            Direction.NW
         ).forEach { d ->
             if (garden.inBounds(pos + d) && garden.at(pos + d) == garden.at(pos)) {
                 neighbors += Plant(pos + d, garden.at(pos + d), (pos + d).calculateFences())
@@ -93,10 +89,6 @@ class Day12 {
             Direction.E,
             Direction.S,
             Direction.W,
-            Direction.NE,
-            Direction.SW,
-            Direction.SW,
-            Direction.NW
         ).forEach { d ->
             if (garden.inBounds(pos + d) && garden.at(pos + d) != garden.at(pos)) {
                 neighbors += Plant(pos + d, garden.at(pos + d), (pos + d).calculateFences())
