@@ -48,6 +48,23 @@ operator fun Point2D.minus(direction: Direction): Point2D {
     }
 }
 
+fun Direction.turnCW90(): Direction {
+    return when (this) {
+        Direction.N -> Direction.E
+        Direction.E -> Direction.S
+        Direction.S -> Direction.W
+        Direction.W -> Direction.N
+        Direction.NE -> Direction.SE
+        Direction.SE -> Direction.SW
+        Direction.SW -> Direction.NW
+        Direction.NW -> Direction.NE
+    }
+}
+
+fun Direction.turnCCW90(): Direction {
+    return this.turnCW90().turnCW90().turnCW90()
+}
+
 operator fun Point2D.plus(other: Point2D): Point2D = Point2D(other.x + x, other.y + y)
 operator fun Point2D.minus(other: Point2D): Point2D = Point2D(other.x - x, other.y - y)
 
