@@ -18,22 +18,22 @@ function i.a.
 
 #### Daily Solution Index for 2024
 
-| Day | Title                 | Links                                                                                                                      |
-|-----|-----------------------|----------------------------------------------------------------------------------------------------------------------------|
-| 1   | Historian Hysteria    | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day1.kt) [\[AoC\]](http://adventofcode.com/2024/day/1)   |
-| 2   | Red-Nosed Reports     | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day2.kt) [\[AoC\]](http://adventofcode.com/2024/day/2)   |
-| 3   | Mull It Over          | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day3.kt) [\[AoC\]](http://adventofcode.com/2024/day/3)   |
-| 4   | Ceres Search          | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day4.kt) [\[AoC\]](http://adventofcode.com/2024/day/4)   |
-| 5   | Print Queue           | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day5.kt) [\[AoC\]](http://adventofcode.com/2024/day/5)   |
-| 6   | Guard Gallivant       | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day6.kt) [\[AoC\]](http://adventofcode.com/2024/day/6)   |
-| 7   | Bridge Repair         | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day7.kt) [\[AoC\]](http://adventofcode.com/2024/day/7)   |
-| 8   | Resonant Collinearity | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day8.kt) [\[AoC\]](http://adventofcode.com/2024/day/8)   |
-| 9   | Disk Fragmented       | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day9.kt) [\[AoC\]](http://adventofcode.com/2024/day/9)   |
-| 10  | Hoof It               | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day10.kt) [\[AoC\]](http://adventofcode.com/2024/day/10) |
-| 11  | Plutonian Pebbles     | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day11.kt) [\[AoC\]](http://adventofcode.com/2024/day/11) |
-| 12  | Garden Groups         | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day12.kt) [\[AoC\]](http://adventofcode.com/2024/day/12) |
-| 13  | Claw Contraption      | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day13.kt) [\[AoC\]](http://adventofcode.com/2024/day/13) |
-| 14  | Restroom Redoubt      | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day14.kt) [\[AoC\]](http://adventofcode.com/2024/day/14) |
-| 15  | Warehouse Woes        | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day15.kt) [\[AoC\]](http://adventofcode.com/2024/day/15) |
-| 16  | Reindeer Maze        | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day16.kt) [\[AoC\]](http://adventofcode.com/2024/day/17) |
-| 15  | Warehouse Woes        | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day17.kt) [\[AoC\]](http://adventofcode.com/2024/day/17) |
+| Day | Title                  | Links                                                                                                                      |
+|-----|------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| 1   | Historian Hysteria     | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day1.kt) [\[AoC\]](http://adventofcode.com/2024/day/1)   |
+| 2   | Red-Nosed Reports      | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day2.kt) [\[AoC\]](http://adventofcode.com/2024/day/2)   |
+| 3   | Mull It Over           | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day3.kt) [\[AoC\]](http://adventofcode.com/2024/day/3)   |
+| 4   | Ceres Search           | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day4.kt) [\[AoC\]](http://adventofcode.com/2024/day/4)   |
+| 5   | Print Queue            | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day5.kt) [\[AoC\]](http://adventofcode.com/2024/day/5)   |
+| 6   | Guard Gallivant        | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day6.kt) [\[AoC\]](http://adventofcode.com/2024/day/6)   |
+| 7   | Bridge Repair          | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day7.kt) [\[AoC\]](http://adventofcode.com/2024/day/7)   |
+| 8   | Resonant Collinearity  | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day8.kt) [\[AoC\]](http://adventofcode.com/2024/day/8)   |
+| 9   | Disk Fragmented        | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day9.kt) [\[AoC\]](http://adventofcode.com/2024/day/9)   |
+| 10  | Hoof It                | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day10.kt) [\[AoC\]](http://adventofcode.com/2024/day/10) |
+| 11  | Plutonian Pebbles      | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day11.kt) [\[AoC\]](http://adventofcode.com/2024/day/11) |
+| 12  | Garden Groups          | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day12.kt) [\[AoC\]](http://adventofcode.com/2024/day/12) |
+| 13  | Claw Contraption       | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day13.kt) [\[AoC\]](http://adventofcode.com/2024/day/13) |
+| 14  | Restroom Redoubt       | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day14.kt) [\[AoC\]](http://adventofcode.com/2024/day/14) |
+| 15  | Warehouse Woes         | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day15.kt) [\[AoC\]](http://adventofcode.com/2024/day/15) |
+| 16  | Reindeer Maze          | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day16.kt) [\[AoC\]](http://adventofcode.com/2024/day/17) |
+| 17  | Chronospatial Computer | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day17.kt) [\[AoC\]](http://adventofcode.com/2024/day/17) |
