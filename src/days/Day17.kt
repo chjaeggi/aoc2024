@@ -5,38 +5,56 @@ import kotlin.math.truncate
 
 class Day17 {
 
-    private var regA = 30118712
-    private var regB = 0
-    private var regC = 0
+    // 111 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 ==> 7 shl << 45
+    // 000 000 000 000 000 000 000 000 000 000 000 000 000 000 000 111 ==> 7
+    // (4 shl 12).or(7 shl 9).or( 6 shl 6).or( 6 shl 3).or( 1)
+    // top most 3 bits determine last program number
+    private var regA = 30118712L
+    private var regB = 0L
+    private var regC = 0L
     private var instructionPtr = 0
     private val program = listOf(2, 4, 1, 3, 7, 5, 4, 2, 0, 3, 1, 5, 5, 5, 3, 0)
-    private var targetPointer = 0
-    private var solutionFound = false
 
     fun solve() {
         part1()
         part2()
-        println()
     }
 
-    private fun part1(breakEarly: Boolean = false) {
+    private fun part1() {
+        val outCode = mutableListOf<Int>()
         while (instructionPtr < program.lastIndex) {
             val (opcode, operand) = program.next()
-            execute(opcode, operand, breakEarly)
+            execute(opcode, operand, outCode)
         }
+        println(outCode)
     }
 
     private fun part2() {
-        var regAToTest = 0
-        while (!solutionFound) {
-            regA = ++regAToTest
-            regB = 0
-            regC = 0
-            instructionPtr = 0
-            targetPointer = 0
-            part1(true)
+        var regARunning = 0L
+        val reversedProg = program.reversed()
+        var pointer = 0
+        var foundSolution = false
+        for (number in reversedProg) {
+            while (!foundSolution) {
+                instructionPtr = 0
+                regA = regARunning
+                regB = 0L
+                regC = 0L
+                val outCode = mutableListOf<Int>()
+                while (instructionPtr < program.lastIndex) {
+                    val (opcode, operand) = program.next()
+                    execute(opcode, operand, outCode)
+                }
+                if (outCode.reversed() == reversedProg.subList(0, pointer+1)) {
+//                    println("found $outCode")
+                    if (outCode.reversed() == reversedProg) foundSolution = true
+                    regARunning = regARunning shl 3
+                    pointer++
+                } else {
+                    regARunning += 1L
+                }
+            }
         }
-        println(regAToTest)
     }
 
     private fun List<Int>.next(): Pair<Int, Int> {
@@ -46,36 +64,36 @@ class Day17 {
     private fun Int.toCombo(): Int {
         return when (this) {
             in listOf(0, 1, 2, 3) -> this
-            4 -> regA
-            5 -> regB
-            6 -> regC
+            4 -> regA.toInt()
+            5 -> regB.toInt()
+            6 -> regC.toInt()
             else -> throw IllegalArgumentException("Only 0 to 6 allowed")
         }
     }
 
-    private fun execute(opCode: Int, literalOperand: Int, breakEarly: Boolean = false) {
+    private fun execute(opCode: Int, literalOperand: Int, result: MutableList<Int> = mutableListOf()) {
         when (opCode) {
             0 -> {
-                regA /= (2.0.pow(literalOperand.toCombo().toDouble())).toInt()
+                regA = (regA / (2.0.pow(literalOperand.toCombo().toDouble()))).toInt().toLong()
                 instructionPtr += 2
             }
 
             1 -> {
-                regB = regB.xor(literalOperand)
+                regB = regB.xor(literalOperand.toLong())
                 instructionPtr += 2
             }
 
             2 -> {
-                regB = literalOperand.toCombo() % 8
+                regB = literalOperand.toCombo().toLong() % 8
                 instructionPtr += 2
             }
 
             3 -> {
-                if (regA == 0) {
+                if (regA.toInt() == 0) {
                     instructionPtr += 2
-                    return
+                } else {
+                    instructionPtr = literalOperand
                 }
-                instructionPtr = literalOperand
             }
 
             4 -> {
@@ -85,47 +103,23 @@ class Day17 {
 
             5 -> {
 //                print("${literalOperand.toCombo() % 8},")
-                if (breakEarly) {
-                    val number = literalOperand.toCombo() % 8
-                    if (number == program[targetPointer]) {
-                        targetPointer++
-                        if (targetPointer > program.lastIndex) {
-                            solutionFound = true
-                            instructionPtr = Int.MAX_VALUE
-                            return
-                        }
-                    } else {
-                        instructionPtr = Int.MAX_VALUE
-                        return
-                    }
-                }
                 instructionPtr += 2
+                result += literalOperand.toCombo() % 8
+//                println(result)
             }
 
             6 -> {
-                regB =
-                    truncate(
-                        regA / (Math.pow(
-                            2.0,
-                            literalOperand.toCombo().toDouble()
-                        ))
-                    ).toInt()
+                regB = (regA / (2.0.pow(literalOperand.toCombo().toDouble()))).toInt().toLong()
                 instructionPtr += 2
             }
 
             7 -> {
-                regC =
-                    truncate(
-                        regA / (Math.pow(
-                            2.0,
-                            literalOperand.toCombo().toDouble()
-                        ))
-                    ).toInt()
+                regC = (regA / (2.0.pow(literalOperand.toCombo().toDouble()))).toInt().toLong()
                 instructionPtr += 2
             }
 
             else -> {
-
+                throw IllegalStateException("Unknown OP Code")
             }
         }
     }
