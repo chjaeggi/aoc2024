@@ -11,6 +11,9 @@ Before I start I want to give a big shout-out to [Todd Ginsberg](https://github.
 solutions are very concise as well as idiomatic to read.
 His repos are always very inspirational! I learned a lot from him.
 
+Also, there was a guy doing stuff in Kotlin I stumbled upon on reddit: Good
+stuff: [ClouddJR](https://github.com/ClouddJR/advent-of-code-2024/tree/main/src/main/kotlin/com/clouddjr/advent2024)
+
 Just use the main class and execute either the appropriate `solve` functions in the according `Day` classes or any `day`
 function i.a.
 

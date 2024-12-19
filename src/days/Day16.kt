@@ -2,37 +2,13 @@ package days
 
 import utils.*
 import java.util.*
-import kotlin.collections.ArrayDeque
 
-
-private typealias Tracks = Map<DirectedPoint2D, List<Step>>
-
-private data class DirectedPoint2D(
-    val pos: Point2D,
-    val dir: Direction,
+private data class Location(
+    val position: Point2D,
+    val facing: Direction,
+    val cost: Int,
+    val steps: List<Point2D> = emptyList()
 )
-
-private data class Step(
-    val from: DirectedPoint2D,
-    val to: DirectedPoint2D,
-    val cost: Int
-)
-
-private data class Race(val step: Step, val totalCost: Int, val stepsAlong: List<DirectedPoint2D>) :
-    Comparable<Race> {
-    override fun compareTo(other: Race): Int {
-        val comparison = totalCost - other.totalCost
-        return when {
-            comparison > 0 -> 1
-            comparison < 0 -> -1
-            else -> 0
-        }
-    }
-}
-
-enum class EdgeType {
-    Directed, Undirected
-}
 
 class Day16 {
 
@@ -51,146 +27,102 @@ class Day16 {
                 if (v == 'E') end = Point2D(x, y)
             }
         }
-        val tracks = mutableMapOf<DirectedPoint2D, List<Step>>()
-        start?.let {
-            val toCheck = ArrayDeque<DirectedPoint2D>()
-            val seen = mutableSetOf<DirectedPoint2D>()
-            toCheck.addLast(DirectedPoint2D(it, Direction.E))
-            while (toCheck.isNotEmpty()) {
-                val next = toCheck.removeFirst()
-                exploreTracks(next, toCheck, seen, tracks)
-            }
-            val dijkstraStart = it
-            val dijkstraDest = end ?: throw IllegalStateException("No Endpoint found in maze")
-            val costs = tracks.cheapestCostsFrom(DirectedPoint2D(it, Direction.E))
-            var min = Int.MAX_VALUE
-            for (d in listOf(Direction.N, Direction.E, Direction.S, Direction.W)) {
-                costs[DirectedPoint2D(dijkstraDest, d)]?.let {
-                    if (min > it) {
-                        min = it
-                    }
-                }
-            }
-            println("The best race from $dijkstraStart to $dijkstraDest costs: $min")
-//            val all = tracks.getAllPathsInCheapestFor(DirectedPoint2D(it, Direction.E))
-//            println("all: $all")
-        } ?: println("No start field found")
-    }
 
-    private fun exploreTracks(
-        dp: DirectedPoint2D,
-        toCheck: ArrayDeque<DirectedPoint2D>,
-        seen: MutableSet<DirectedPoint2D>,
-        tracks: MutableMap<DirectedPoint2D, List<Step>>
-    ) {
-        for (d in listOf(dp.dir, dp.dir.turnCW90(), dp.dir.turnCCW90())) {
-            if (raceMap.at(dp.pos + d) == '#') continue
-            if (dp.dir == d.turnCW90().turnCW90()) continue
-            if (DirectedPoint2D(dp.pos, d) in seen) continue
-            tracks.add(
-                EdgeType.Directed,
-                Step(dp, DirectedPoint2D(dp.pos + d, d), dp.dir.cost(d) + 1)
-            )
-            if (DirectedPoint2D(dp.pos + d, d) !in toCheck) {
-                toCheck.addLast(DirectedPoint2D(dp.pos + d, d))
-                seen += dp
-                seen += DirectedPoint2D(dp.pos, dp.dir.turnCCW90().turnCW90())
-            }
+        if (start == null || end == null) {
+            throw IllegalStateException("No start or end position found")
         }
+        println(part1(start!!, end!!))
+        println(part2(start!!, end!!))
     }
 
-    private fun MutableMap<DirectedPoint2D, List<Step>>.add(type: EdgeType, step: Step) {
-        val fromSteps = this[step.from] ?: emptyList()
-        this[step.from] = fromSteps + step
-
-        if (type == EdgeType.Undirected) {
-            val toSteps = this[step.to] ?: emptyList()
-            this[step.to] = toSteps + step.invert()
-        }
-    }
-
-    private fun Step.invert() = copy(from = to, to = from)
-
-    private fun Tracks.cost(from: DirectedPoint2D, to: DirectedPoint2D) =
-        this[from]?.firstOrNull { it.to == to }?.cost
-
-    private fun Direction.cost(next: Direction): Int {
-        if (this == next) return 0
-        return when (this) {
-            in listOf(Direction.N, Direction.S) -> if (next in listOf(
-                    Direction.E,
-                    Direction.W
+    private fun part1(start: Point2D, end: Point2D): Int {
+        val queue =
+            PriorityQueue<Location>(compareBy { it.cost }).apply {
+                add(
+                    Location(
+                        start,
+                        Direction.E,
+                        0,
+                        listOf()
+                    )
                 )
-            ) 1000 else throw IllegalStateException("Illegal direction detected")
+            }
+        val seen = mutableSetOf<Pair<Direction, Point2D>>()
+        while (queue.isNotEmpty()) {
+            val location = queue.poll()
+            if (location.facing to location.position in seen) {
+                continue
+            } else {
+                seen += location.facing to location.position
+            }
+            val pos = location.position
+            val cost = location.cost
 
-            in listOf(Direction.E, Direction.W) -> if (next in listOf(
-                    Direction.N,
-                    Direction.S
-                )
-            ) 1000 else throw IllegalStateException("Illegal direction detected")
+            if (pos == end) {
+                return cost
+            }
 
-            else -> throw IllegalStateException("Illegal direction detected")
-        }
-    }
-
-    // dijkstra
-    private fun Tracks.cheapestCostsFrom(p: DirectedPoint2D): Map<DirectedPoint2D, Int> {
-        val queue = PriorityQueue<Race>()
-        queue.addAll(this[p]?.map { Race(it, it.cost, emptyList()) }
-            ?: emptyList()) // add starting outbounds from source
-        val seen = mutableSetOf<DirectedPoint2D>()
-        val costPerDestination = mutableMapOf<DirectedPoint2D, Int>()
-        while (queue.isNotEmpty()) { // always find the local cheapest path (min heap property by priority queue)
-            val currentStep = queue.poll()
-//            println("from: ${currentStep.step.from} to: ${currentStep.step.to} with: ${currentStep.totalCost}")
-            if (currentStep.step.to !in seen) {
-                if (currentStep.step.to != p) costPerDestination[currentStep.step.to] =
-                    currentStep.totalCost
-                this[currentStep.step.to]?.let { routes ->
-                    queue += routes
-                        .filterNot { it.to in seen } // prevent racing back
-                        .map {
-                            Race(it, currentStep.totalCost + it.cost, emptyList())
-                        }
-
-                }
-                seen += currentStep.step.to
+            val straight = location.facing
+            val left = location.facing.turnCCW90()
+            val right = location.facing.turnCW90()
+            if (raceMap.atOrNull(pos + straight) != '#') {
+                queue.add(Location(pos + straight, straight, cost + 1))
+            }
+            if (raceMap.atOrNull(pos + left) != '#') {
+                queue.add(Location(pos + left, left, cost + 1001))
+            }
+            if (raceMap.atOrNull(pos + right) != '#') {
+                queue.add(Location(pos + right, right, cost + 1001))
             }
         }
-        return costPerDestination
+        throw IllegalStateException("No way to target found")
     }
 
-//    private fun Tracks.getAllPathsInCheapestFor(p: DirectedPoint2D): Int {
-//        val queue = PriorityQueue<Race>()
-//        queue.addAll(this[p]?.map { Race(it, it.cost, listOf(p)) }
-//            ?: emptyList()) // add starting outbounds from source
-//        val seen = mutableMapOf<DirectedPoint2D, Int>()
-//        var costAtGoal: Int? = null
-//        val allSpotsInAllPaths: MutableSet<DirectedPoint2D> = mutableSetOf()
-//        while (queue.isNotEmpty()) {
-//            val currentRace = queue.poll()
-//            if (costAtGoal != null && currentRace.totalCost > costAtGoal) {
-//                return allSpotsInAllPaths.size
-//            } else if (raceMap.at(currentRace.step.from.pos) == 'E') {
-//                costAtGoal = currentRace.totalCost
-//                allSpotsInAllPaths.addAll(currentRace.stepsAlong)
-//            } else if (seen.getOrDefault(
-//                    currentRace.step.to,
-//                    Int.MAX_VALUE
-//                ) >= currentRace.totalCost
-//            ) {
-//                seen[currentRace.step.to] = currentRace.totalCost
-//                this[currentRace.step.to]?.let { routes ->
-//                    queue += routes.map {
-//                        Race(it, currentRace.totalCost + it.cost, emptyList())
-//                            .copy(stepsAlong = currentRace.stepsAlong + it.to)
-//                    }
-//
-//                }
-//            }
-//        }
-//        return allSpotsInAllPaths.size
-//    }
+    private fun part2(start: Point2D, end: Point2D): Int {
+        val queue =
+            PriorityQueue<Location>(compareBy { it.cost }).apply {
+                add(
+                    Location(
+                        start,
+                        Direction.E,
+                        0,
+                        listOf()
+                    )
+                )
+            }
+
+        // Thanks, ClouddJR
+        val paths = mutableSetOf<Point2D>()
+        var lowest = Int.MAX_VALUE
+        val scores = mutableMapOf<Pair<Point2D, Direction>, Int>().withDefault { Int.MAX_VALUE }
+
+        while (queue.isNotEmpty()) {
+            val (pos, dir, score, path) = queue.poll()
+
+            if (score > scores.getValue(pos to dir)) {
+                continue
+            }
+            scores[pos to dir] = score
+
+            if (pos == end) {
+                if (score > lowest) break
+                paths.addAll(path)
+                lowest = score
+            }
+
+            val left = dir.turnCCW90()
+            val right = dir.turnCW90()
+
+            if (raceMap.atOrNull(pos + dir) != '#') {
+                queue.add(Location(pos + dir, dir, score + 1, path + pos))
+            }
+            if (raceMap.atOrNull(pos + left) != '#') {
+                queue.add(Location(pos + left, left, score + 1001, path + pos))
+            }
+            if (raceMap.atOrNull(pos + right) != '#') {
+                queue.add(Location(pos + right, right, score + 1001, path + pos))
+            }
+        }
+        return paths.size + 1
+    }
 }
-
-
