@@ -42,3 +42,4 @@ function i.a.
 | 17  | Chronospatial Computer | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day17.kt) [\[AoC\]](http://adventofcode.com/2024/day/17) |
 | 18  | RAM Run                | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day18.kt) [\[AoC\]](http://adventofcode.com/2024/day/18) |
 | 19  | Linen Layout           | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day19.kt) [\[AoC\]](http://adventofcode.com/2024/day/19) |
+| 20  | Race Condition         | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day20.kt) [\[AoC\]](http://adventofcode.com/2024/day/20) |
