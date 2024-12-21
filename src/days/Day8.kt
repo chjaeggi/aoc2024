@@ -24,7 +24,7 @@ class Day8 {
             }
         }
         antennas.forEach { antenna ->
-            combinations(antenna.value, 2).forEach {
+            antenna.value.combinations(2).forEach {
                 var a = it[0]
                 var b = it[1]
                 val vectorAB = it[0] - it[1]
