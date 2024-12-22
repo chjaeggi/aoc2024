@@ -3,7 +3,7 @@ import kotlin.system.measureTimeMillis
 
 fun main() {
     val time = measureTimeMillis {
-        Day20().solve()
+        Day22().solve()
     }
     println("-----------------")
     println("Runs in $time ms")
