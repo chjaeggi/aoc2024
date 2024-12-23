@@ -43,4 +43,6 @@ function i.a.
 | 18  | RAM Run                | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day18.kt) [\[AoC\]](http://adventofcode.com/2024/day/18) |
 | 19  | Linen Layout           | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day19.kt) [\[AoC\]](http://adventofcode.com/2024/day/19) |
 | 20  | Race Condition         | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day20.kt) [\[AoC\]](http://adventofcode.com/2024/day/20) |
+| 21  | Keypad Conundrum       | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day21.kt) [\[AoC\]](http://adventofcode.com/2024/day/21) |
 | 22  | Monkey Market          | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day22.kt) [\[AoC\]](http://adventofcode.com/2024/day/22) |
+| 23  | LAN Party              | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day23.kt) [\[AoC\]](http://adventofcode.com/2024/day/23) |
