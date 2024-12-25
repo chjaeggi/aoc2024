@@ -46,3 +46,5 @@ function i.a.
 | 21  | Keypad Conundrum       | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day21.kt) [\[AoC\]](http://adventofcode.com/2024/day/21) |
 | 22  | Monkey Market          | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day22.kt) [\[AoC\]](http://adventofcode.com/2024/day/22) |
 | 23  | LAN Party              | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day23.kt) [\[AoC\]](http://adventofcode.com/2024/day/23) |
+| 24  | Crossed Wires          | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day24.kt) [\[AoC\]](http://adventofcode.com/2024/day/24) |
+| 24  | Code Chronicle         | [\[Code\]](https://github.com/chjaeggi/aoc2024/blob/main/src/days/Day25.kt) [\[AoC\]](http://adventofcode.com/2024/day/25) |
