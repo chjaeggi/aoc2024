@@ -1,274 +1,95 @@
 package days
 
+import utils.Point2D
 import utils.execFileByLine
+import utils.minus
 
-/*
-    Hints needed:
-    =============
 
-    https://www.reddit.com/r/adventofcode/comments/1hj2odw/comment/m3c7602/
-    Priorities in moves:
-    - No zig-zag path. So the path must be at most a row move + a column move.
-    - When go left, prefer left and then up/down
-    - When go right, prefer down/up and then right
-    - When the preferred path is blocked by the empty space, use the opposite path (row, column moves flipped)
-
-    https://www.reddit.com/r/adventofcode/comments/1hj2odw/comment/m37cd9b/
-    I generally did < before ^ and v and both of those before >
-    And also minimized turns before applying either of those rules
-    for example from A to 7 I went ^^^<< even though it breaks the previous rule.
-    Reason being, because of the empty space, I could not do all of the left before doing
-    all of the up, so it was better to go ahead and do all the up and minimize turns,
-    because the longer you can stay on the same direction, the nested layers of controls
-    get to just keep hitting A, A, A and not moving.
-
-*/
-
+// Thanks, ClouddJR
 class Day21 {
 
-    fun solve() {
-        execFileByLine(21) {
+    private val numeric = mapOf(
+        Point2D(0, 0) to '7', Point2D(1, 0) to '8', Point2D(2, 0) to '9',
+        Point2D(0, 1) to '4', Point2D(1, 1) to '5', Point2D(2, 1) to '6',
+        Point2D(0, 2) to '1', Point2D(1, 2) to '2', Point2D(2, 2) to '3',
+        Point2D(1, 3) to '0', Point2D(2, 3) to 'A'
+    )
 
+    private val directional = mapOf(
+        Point2D(1, 0) to '^', Point2D(2, 0) to 'A',
+        Point2D(0, 1) to '<', Point2D(1, 1) to 'v', Point2D(2, 1) to '>'
+    )
+
+    private val numericPaths = buildShortestPaths(keypad = numeric)
+    private val directionalPaths = buildShortestPaths(keypad = directional)
+
+    fun solve() {
+        println(solver(levels = 3))
+        println(solver(levels = 26))
+    }
+
+    private fun solver(levels: Int): Long {
+        val exampleList = listOf("029A", "980A", "179A", "456A", "379A")
+        val realInput = mutableListOf<String>()
+        execFileByLine(21) {
+            realInput += it
+        }
+
+        return realInput.sumOf { code ->
+            code.findCost(levels) * code.filter { it.isDigit() }.toInt()
         }
     }
 
+    private fun String.findCost(
+        levels: Int,
+        keypad: Map<Char, Map<Char, List<String>>> = numericPaths,
+        cache: MutableMap<Pair<String, Int>, Long> = mutableMapOf()
+    ): Long =
+        cache.getOrPut(this to levels) {
+            when (levels) {
+                0 -> length.toLong()
+                else -> {
+                    "A$this".zipWithNext().sumOf { (from, to) ->
+                        keypad.getValue(from).getValue(to).minOf { path ->
+                            "${path}A".findCost(levels - 1, directionalPaths, cache)
+                        }
+                    }
+                }
+            }
+        }
 
-//
-//    private fun Char.fromNumerical(from: Char): String {
-//        return when (this) {
-//            'A' -> {
-//                when (from) {
-//                    'A' -> "A"
-//                    '0' -> ">A"
-//                    '1' -> ">>vA"
-//                    '2' -> ">vA"
-//                    '3' -> "vA"
-//                    '4' -> ">>vvA"
-//                    '5' -> ">vvA"
-//                    '6' -> "vvA"
-//                    '7' -> ">>vvvA"
-//                    '8' -> ">vvvA"
-//                    '9' -> "vvvA"
-//                    else -> throw IllegalStateException("This is not a valid to direction: $from")
-//                }
-//            }
-//            '0' -> {
-//                when (from) {
-//                    'A' -> "<A"
-//                    '0' -> "A"
-//                    '1' -> ">vA"
-//                    '2' -> "vA"
-//                    '3' -> "v<A"
-//                    '4' -> "^^<A"
-//                    '5' -> "^^A"
-//                    '6' -> "^^>A"
-//                    '7' -> "^^^<A"
-//                    '8' -> "^^^A"
-//                    '9' -> "^^^>A"
-//                    else -> throw IllegalStateException("This is not a valid to direction: $from")
-//                }
-//            }
-//            '1' -> {
-//                when (from) {
-//                    'A' -> ""
-//                    '0' -> ""
-//                    '1' -> ""
-//                    '2' -> ""
-//                    '3' -> ""
-//                    '4' -> ""
-//                    '5' -> ""
-//                    '6' -> ""
-//                    '7' -> ""
-//                    '8' -> ""
-//                    '9' -> ""
-//                    else -> throw IllegalStateException("This is not a valid to direction: $from")
-//                }
-//            }
-//            '2' -> {
-//                when (from) {
-//                    'A' -> ""
-//                    '0' -> ""
-//                    '1' -> ""
-//                    '2' -> ""
-//                    '3' -> ""
-//                    '4' -> ""
-//                    '5' -> ""
-//                    '6' -> ""
-//                    '7' -> ""
-//                    '8' -> ""
-//                    '9' -> ""
-//                    else -> throw IllegalStateException("This is not a valid to direction: $from")
-//                }
-//            }
-//            '3' -> {
-//                when (from) {
-//                    'A' -> ""
-//                    '0' -> ""
-//                    '1' -> ""
-//                    '2' -> ""
-//                    '3' -> ""
-//                    '4' -> ""
-//                    '5' -> ""
-//                    '6' -> ""
-//                    '7' -> ""
-//                    '8' -> ""
-//                    '9' -> ""
-//                    else -> throw IllegalStateException("This is not a valid to direction: $from")
-//                }
-//            }
-//            '4' -> {
-//                when (from) {
-//                    'A' -> ""
-//                    '0' -> ""
-//                    '1' -> ""
-//                    '2' -> ""
-//                    '3' -> ""
-//                    '4' -> ""
-//                    '5' -> ""
-//                    '6' -> ""
-//                    '7' -> ""
-//                    '8' -> ""
-//                    '9' -> ""
-//                    else -> throw IllegalStateException("This is not a valid to direction: $from")
-//                }
-//            }
-//            '5' -> {
-//                when (from) {
-//                    'A' -> ""
-//                    '0' -> ""
-//                    '1' -> ""
-//                    '2' -> ""
-//                    '3' -> ""
-//                    '4' -> ""
-//                    '5' -> ""
-//                    '6' -> ""
-//                    '7' -> ""
-//                    '8' -> ""
-//                    '9' -> ""
-//                    else -> throw IllegalStateException("This is not a valid to direction: $from")
-//                }
-//            }
-//            '6' -> {
-//                when (from) {
-//                    'A' -> ""
-//                    '0' -> ""
-//                    '1' -> ""
-//                    '2' -> ""
-//                    '3' -> ""
-//                    '4' -> ""
-//                    '5' -> ""
-//                    '6' -> ""
-//                    '7' -> ""
-//                    '8' -> ""
-//                    '9' -> ""
-//                    else -> throw IllegalStateException("This is not a valid to direction: $from")
-//                }
-//            }
-//            '7' -> {
-//                when (from) {
-//                    'A' -> ""
-//                    '0' -> ""
-//                    '1' -> ""
-//                    '2' -> ""
-//                    '3' -> ""
-//                    '4' -> ""
-//                    '5' -> ""
-//                    '6' -> ""
-//                    '7' -> ""
-//                    '8' -> ""
-//                    '9' -> ""
-//                    else -> throw IllegalStateException("This is not a valid to direction: $from")
-//                }
-//            }
-//            '8' -> {
-//                when (from) {
-//                    'A' -> ""
-//                    '0' -> ""
-//                    '1' -> ""
-//                    '2' -> ""
-//                    '3' -> ""
-//                    '4' -> ""
-//                    '5' -> ""
-//                    '6' -> ""
-//                    '7' -> ""
-//                    '8' -> ""
-//                    '9' -> ""
-//                    else -> throw IllegalStateException("This is not a valid to direction: $from")
-//                }
-//            }
-//            '9' -> {
-//                when (from) {
-//                    'A' -> ""
-//                    '0' -> ""
-//                    '1' -> ""
-//                    '2' -> ""
-//                    '3' -> ""
-//                    '4' -> ""
-//                    '5' -> ""
-//                    '6' -> ""
-//                    '7' -> ""
-//                    '8' -> ""
-//                    '9' -> ""
-//                    else -> throw IllegalStateException("This is not a valid to direction: $from")
-//                }
-//            }
-//            else -> throw IllegalStateException("This is not a valid from direction: $this")
-//        }
-//    }
-//
-//    private fun Char.fromDirectional(from: Char): String {
-//        return when (this) {
-//            'A' -> {
-//                when (from) {
-//                    'A' -> "A"
-//                    '^' -> ">A"
-//                    'v' -> ">^A"
-//                    '<' -> ">>^A"
-//                    '>' -> "^A"
-//                    else -> throw IllegalStateException("This is not a valid to direction: $from")
-//                }
-//            }
-//            '^' -> {
-//                when (from) {
-//                    'A' -> ">A"
-//                    '^' -> "A"
-//                    'v' -> "^A"
-//                    '<' -> ">^A"
-//                    '>' -> "<^A"
-//                    else -> throw IllegalStateException("This is not a valid to direction: $from")
-//                }
-//            }
-//            'v' -> {
-//                when (from) {
-//                    'A' -> "v<A"
-//                    '^' -> "vA"
-//                    'v' -> "A"
-//                    '<' -> ">A"
-//                    '>' -> "<A"
-//                    else -> throw IllegalStateException("This is not a valid to direction: $from")
-//                }
-//            }
-//            '<' -> {
-//                when (from) {
-//                    'A' -> "v<<A"
-//                    '^' -> "v<A"
-//                    'v' -> "<A"
-//                    '<' -> "A"
-//                    '>' -> "<<A"
-//                    else -> throw IllegalStateException("This is not a valid to direction: $from")
-//                }
-//            }
-//            '>' -> {
-//                when (from) {
-//                    'A' -> "vA"
-//                    '^' -> ">vA"
-//                    'v' -> ">A"
-//                    '<' -> ">>A"
-//                    '>' -> "A"
-//                    else -> throw IllegalStateException("This is not a valid to direction: $from")
-//                }
-//            }
-//            else -> throw IllegalStateException("This is not a valid from direction: $this")
-//        }
-//    }
+    private fun buildShortestPaths(keypad: Map<Point2D, Char>): Map<Char, Map<Char, List<String>>> =
+        buildMap {
+            for (start in keypad.keys) {
+                val paths = mutableMapOf<Char, MutableList<String>>()
+                paths[keypad.getValue(start)] = mutableListOf("")
+
+                val queue = mutableListOf(start to "")
+                val visited = mutableSetOf<Point2D>()
+
+                while (queue.isNotEmpty()) {
+                    val (current, path) = queue.removeFirst()
+                    visited += current
+
+                    listOf(current.n, current.e, current.s, current.w).forEach {
+                        if (it in keypad && it !in visited) {
+                            val newPath = path + (it - current).toChar()
+                            queue += it to newPath
+                            paths.getOrPut(keypad.getValue(it)) { mutableListOf() } += newPath
+                        }
+                    }
+                }
+                set(keypad[start]!!, paths)
+            }
+        }
+
+    private fun Point2D.toChar() =
+        when (this) {
+            Point2D(0, -1) -> "^"
+            Point2D(1, 0) -> ">"
+            Point2D(0, 1) -> "v"
+            Point2D(-1, 0) -> "<"
+            else -> error("Invalid direction: $this")
+        }
+
 }
